@@ -1,0 +1,37 @@
+<resources>
+
+  <style name="AppTheme" parent="BaseTheme"/>
+  <!-- Base application theme. -->
+  <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primaryDark</item>
+    <item name="colorControlHighlight">@color/accentTraslucent</item> 
+    <item name="colorAccent">@color/accent</item>
+  </style>
+
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+  <style name="AutoCompleteFilms" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+    <item name="background">@color/backgroundAutoComplete</item>
+    <item name="colorControlNormal">@color/controlNormalAuto</item>
+    <item name="colorControlActivated">@color/controlActivatedAuto</item>
+  </style>
+
+  <style name="CardViewStyle" parent="Theme.AppCompat.Light">
+    <item name="cardCornerRadius">2dp</item>
+    <item name="cardElevation">2dp</item>
+    <item name="contentPaddingBottom">24dp</item>
+    <item name="contentPaddingTop">24dp</item>
+    <item name="contentPaddingLeft">16dp</item>
+    <item name="contentPaddingRight">16dp</item>
+    <item name="cardBackgroundColor">@color/cardview_light_background</item>
+  </style>
+</resources>
