@@ -1,5 +1,6 @@
 package xyz.gonzapico.sa_butterknife;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,42 +9,38 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindArray;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.squareup.picasso.Picasso;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import xyz.gonzapico.sa_butterknife.getDataUser.GetDataUserPresenter;
+import xyz.gonzapico.sa_butterknife.getDataUser.GetDataUserView;
 
-public class HomeActivity extends BaseKCActivity {
-
+public class HomeActivity extends BaseKCActivity implements GetDataUserView {
 
   @Nullable @BindView(R.id.fab) FloatingActionButton fab;
+  @Nullable @BindView(R.id.autoTVFilms) AutoCompleteTextView autoTVFilms;
+
+  @BindView(R.id.drawerLayout) DrawerLayout drawerLayout;
+  @BindView(R.id.navigationView) NavigationView navigationView;
+  @BindView(R.id.frameLayout) FrameLayout frameLayout;
+
   @BindString(R.string.fab_title) String fabTitle;
   @BindString(R.string.fab_action) String fabAction;
-  @Nullable @BindView(R.id.autoTVFilms) AutoCompleteTextView autoTVFilms;
+
   @BindArray(R.array.films_list) String[] filmFilter;
-  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-  @BindView(R.id.nav_view) NavigationView navigationView;
-  @BindView(R.id.frameLayout) FrameLayout frameLayout;
-  @OnClick(R.id.fab) void fabListener(View v){
+
+  @OnClick(R.id.fab) void fabListener(View v) {
     Snackbar.make(v, fabTitle, Snackbar.LENGTH_LONG).setAction(fabAction, null).show();
   }
 
-  public static final String AVATAR_URL = "http://lorempixel.com/200/200/people/";
+  private GetDataUserPresenter mGetDataUserPresenter;
 
   @Override public int getLayoutId() {
     return R.layout.activity_home;
@@ -52,36 +49,50 @@ public class HomeActivity extends BaseKCActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setUpAvatarMenu();
     setUpDrawerLayout();
+    mGetDataUserPresenter = new GetDataUserPresenter();
   }
 
-  private void setUpAvatarMenu(){
-    final ImageView avatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.avatar);
-    int randomInt = new Random().nextInt(10 - 1) + 1;
-    Picasso.with(this).load(AVATAR_URL + randomInt + "/").transform(new CircleTransform()).into(avatar);
+  @Override protected void onResume() {
+    super.onResume();
+    mGetDataUserPresenter.attachView(this);
+    mGetDataUserPresenter.getGithubUser("gonzapico");
   }
 
-  private void setUpDrawerLayout(){
-    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-          case R.id.nav_list:
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new ScrollingFragment()).commit();
-            break;
-          case R.id.nav_search:
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeActivityFragment()).commit();
-            break;
-          case R.id.nav_select:
-            getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, PickFragment.newInstance()).commit();
-            break;
-        }
-        // Snackbar.make(getCurrentFocus(), item.getItemId() + " pressed", Snackbar.LENGTH_LONG).show();
-        item.setChecked(true);
-        drawerLayout.closeDrawers();
-        return true;
-      }
-    });
+  @Override protected void onStart() {
+    super.onStart();
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mGetDataUserPresenter.detachView();
+  }
+
+  private void setUpDrawerLayout() {
+    navigationView.setNavigationItemSelectedListener(
+        new NavigationView.OnNavigationItemSelectedListener() {
+          @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+              case R.id.nav_list:
+                replaceFragment(new ScrollingFragment());
+                break;
+              case R.id.nav_search:
+                replaceFragment(new HomeActivityFragment());
+                break;
+              case R.id.nav_select:
+                replaceFragment(PickFragment.newInstance());
+                break;
+            }
+            // Snackbar.make(getCurrentFocus(), item.getItemId() + " pressed", Snackbar.LENGTH_LONG).show();
+            item.setChecked(true);
+            drawerLayout.closeDrawers();
+            return true;
+          }
+        });
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,4 +108,18 @@ public class HomeActivity extends BaseKCActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  @Override public void renderUsername(String username) {
+    TextView tvBio = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvName);
+    tvBio.setText(username);
+  }
+
+  @Override public void renderBio(String bio) {
+    TextView tvBio = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvBio);
+    tvBio.setText(bio);
+  }
+
+  @Override public void renderImage(Bitmap bitmap) {
+    ImageView avatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.ivAvatar);
+    avatar.setImageBitmap(bitmap);
+  }
 }

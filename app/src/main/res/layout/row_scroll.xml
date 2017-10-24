@@ -27,6 +27,7 @@
   <TextView
       android:id="@+id/tvRowText"
       tools:text="Hola"
+      android:background="@color/accentTraslucent"
       android:textColor="@android:color/white"
       android:gravity="center"
       android:layout_width="match_parent"

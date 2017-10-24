@@ -38,13 +38,13 @@ public class DetailActivity extends AppCompatActivity {
     Intent intent = new Intent(activity, DetailActivity.class);
     intent.putExtra(EXTRA_IMAGE, viewModel.getUrlImage());
     intent.putExtra(EXTRA_TITLE, viewModel.getTitle());
+    activity.startActivity(intent);
 
     /*
     ActivityOptionsCompat
         options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionImage, EXTRA_IMAGE);
-    ActivityCompat.startActivity(activity, intent, options.toBundle());
+    activity.startActivity(intent, options.toBundle());
     */
-    activity.startActivity(intent);
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {

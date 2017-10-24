@@ -1,5 +1,6 @@
 package xyz.gonzapico.sa_butterknife;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,19 @@ public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.Scro
     onItemClickListener.onItemClick(view, (ViewModel) view.getTag());
   }
 
+  public void addElement(ViewModel viewModel) {
+
+    // final UserDiffCallback diffCallback = new UserDiffCallback(this.listOfElements, viewModel);
+    // final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+    /*
+    this.listOfElements.clear();
+    this.listOfElements.addAll(viewModel);
+    diffResult.dispatchUpdatesTo(this);
+    */
+    // diffResult.dispatchUpdatesTo(this);
+  }
+
   public static class ScrollViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.tvRowText) TextView mTextContent;
     @BindView(R.id.ivImageCard) ImageView ivContent;
@@ -61,5 +75,14 @@ public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.Scro
 
     void onItemClick(View view, ViewModel viewModel);
 
+  }
+
+  public void swapItems(List<ViewModel> actors) {
+    final UserDiffCallback diffCallback = new UserDiffCallback(this.listOfElements, actors);
+    final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+    this.listOfElements.clear();
+    this.listOfElements.addAll(actors);
+    diffResult.dispatchUpdatesTo(this);
   }
 }

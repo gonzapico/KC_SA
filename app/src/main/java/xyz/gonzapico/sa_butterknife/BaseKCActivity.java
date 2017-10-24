@@ -2,6 +2,7 @@ package xyz.gonzapico.sa_butterknife;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,5 +34,11 @@ public abstract class BaseKCActivity extends AppCompatActivity {
       actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black);
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
+  }
+
+  public void replaceFragment(Fragment fragment) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.frameLayout, fragment)
+        .commit();
   }
 }
