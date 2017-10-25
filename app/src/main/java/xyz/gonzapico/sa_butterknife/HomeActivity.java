@@ -19,6 +19,7 @@ import butterknife.BindArray;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.squareup.picasso.Picasso;
 import xyz.gonzapico.sa_butterknife.getDataUser.GetDataUserPresenter;
 import xyz.gonzapico.sa_butterknife.getDataUser.GetDataUserView;
 
@@ -121,5 +122,10 @@ public class HomeActivity extends BaseKCActivity implements GetDataUserView {
   @Override public void renderImage(Bitmap bitmap) {
     ImageView avatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.ivAvatar);
     avatar.setImageBitmap(bitmap);
+  }
+
+  @Override public void renderImageUrl(String url) {
+    ImageView avatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.ivAvatar);
+    Picasso.with(this).load(url).into(avatar);
   }
 }

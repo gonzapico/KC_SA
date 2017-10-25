@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
   <group android:checkableBehavior="single">
     <item
         android:id="@+id/nav_search"
@@ -11,6 +12,27 @@
 
     <item
         android:id="@+id/nav_list"
-        android:title="@string/navigation_list"/>
+        android:orderInCategory="1"
+        android:title="@string/navigation_list"
+        app:showAsAction="always|withText"
+        >
+      <!-- Starting the text color sub menu which have three items-->
+      <menu>
+        <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/nav_static_list"
+              android:title="Estática"
+              />
+          <item
+              android:id="@+id/nav_firebase_list"
+              android:title="Firebase"
+              />
+          <item
+              android:id="@+id/nav_dynamic_list"
+              android:title="Dinámica"
+              />
+        </group>
+      </menu>
+    </item>
   </group>
 </menu>

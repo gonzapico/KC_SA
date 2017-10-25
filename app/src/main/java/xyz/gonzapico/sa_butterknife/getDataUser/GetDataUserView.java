@@ -13,5 +13,7 @@ public interface GetDataUserView {
   void renderBio(String bio);
 
   void renderImage(Bitmap bitmap);
+
+  void renderImageUrl(String url);
 }
 

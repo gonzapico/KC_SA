@@ -1,14 +1,13 @@
-
 package xyz.gonzapico.sa_butterknife.getDataUser;
 
-import com.squareup.moshi.Json;
+import com.google.gson.annotations.SerializedName;
 
 public class GetDataUserModel {
 
   private String login;
   private Integer id;
-  // @SerializedName("avatar_url")
-  @Json(name = "avatar_url")
+  @SerializedName("avatar_url")
+  // @Json(name = "avatar_url")
   private String avatarUrl;
   private String gravatarId;
   private String url;
@@ -277,5 +276,4 @@ public class GetDataUserModel {
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
-
 }
