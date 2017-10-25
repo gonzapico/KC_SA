@@ -18,10 +18,10 @@ import java.util.List;
 
 public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.ScrollViewHolder> implements View.OnClickListener {
 
-  private List<ViewModel> listOfElements;
+  private List<User> listOfElements;
   private OnItemClickListener onItemClickListener;
 
-  public ScrollingAdapter(List<ViewModel> elements, OnItemClickListener onItemClickListener){
+  public ScrollingAdapter(List<User> elements, OnItemClickListener onItemClickListener){
     listOfElements = elements;
     this.onItemClickListener = onItemClickListener;
   }
@@ -34,8 +34,8 @@ public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.Scro
   }
 
   @Override public void onBindViewHolder(final ScrollViewHolder holder, final int position) {
-    holder.mTextContent.setText(listOfElements.get(position).getTitle());
-    Picasso.with(holder.ivContent.getContext()).load(listOfElements.get(position).getUrlImage()).into(holder.ivContent);
+    holder.mTextContent.setText(listOfElements.get(position).getName());
+    Picasso.with(holder.ivContent.getContext()).load(listOfElements.get(position).getUrl()).into(holder.ivContent);
     holder.itemView.setTag(listOfElements.get(position));
   }
 
@@ -45,19 +45,6 @@ public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.Scro
 
   @Override public void onClick(View view) {
     onItemClickListener.onItemClick(view, (ViewModel) view.getTag());
-  }
-
-  public void addElement(ViewModel viewModel) {
-
-    // final UserDiffCallback diffCallback = new UserDiffCallback(this.listOfElements, viewModel);
-    // final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-    /*
-    this.listOfElements.clear();
-    this.listOfElements.addAll(viewModel);
-    diffResult.dispatchUpdatesTo(this);
-    */
-    // diffResult.dispatchUpdatesTo(this);
   }
 
   public static class ScrollViewHolder extends RecyclerView.ViewHolder{
@@ -77,7 +64,7 @@ public class ScrollingAdapter extends RecyclerView.Adapter<ScrollingAdapter.Scro
 
   }
 
-  public void swapItems(List<ViewModel> actors) {
+  public void swapItems(List<User> actors) {
     final UserDiffCallback diffCallback = new UserDiffCallback(this.listOfElements, actors);
     final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 

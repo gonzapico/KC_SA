@@ -1,11 +1,9 @@
 package xyz.gonzapico.sa_butterknife;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +14,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ScrollingFragment extends Fragment implements ScrollingAdapter.OnItemClickListener {
+public class FirebaseListFragment extends Fragment implements ScrollingAdapter.OnItemClickListener {
 
   @BindView(R.id.rvScroll) RecyclerView rvScroll;
 
-
   ScrollingAdapter adapter;
-  public ScrollingFragment() {
+  public FirebaseListFragment() {
     // Required empty public constructor
   }
 
@@ -70,9 +62,8 @@ public class ScrollingFragment extends Fragment implements ScrollingAdapter.OnIt
     myRef.addChildEventListener(new ChildEventListener() {
       @Override public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         User user = dataSnapshot.getValue(User.class);
-        ViewModel viewModel = new ViewModel(user.getName(), user.getUrl());
-        UserRepository.addElement(viewModel);
-        adapter.swapItems(UserRepository.getUpListOfUsers());
+        UserRepository.addElement(user);
+        adapter.swapItems(UserRepository.setUpListOfUsers());
       }
 
       @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {

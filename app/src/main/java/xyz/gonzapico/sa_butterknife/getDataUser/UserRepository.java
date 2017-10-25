@@ -1,8 +1,6 @@
 package xyz.gonzapico.sa_butterknife.getDataUser;
 
-import com.google.gson.JsonObject;
 import javax.inject.Inject;
-import org.json.JSONObject;
 import retrofit2.Call;
 import xyz.gonzapico.sa_butterknife.GithubAPI;
 import xyz.gonzapico.sa_butterknife.di.DaggerDataComponent;

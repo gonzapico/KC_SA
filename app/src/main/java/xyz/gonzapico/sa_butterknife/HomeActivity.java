@@ -25,6 +25,7 @@ import xyz.gonzapico.sa_butterknife.getDataUser.GetDataUserView;
 
 public class HomeActivity extends BaseKCActivity implements GetDataUserView {
 
+  public static final String USERNAME = "gonzapico";
   @Nullable @BindView(R.id.fab) FloatingActionButton fab;
   @Nullable @BindView(R.id.autoTVFilms) AutoCompleteTextView autoTVFilms;
 
@@ -57,7 +58,7 @@ public class HomeActivity extends BaseKCActivity implements GetDataUserView {
   @Override protected void onResume() {
     super.onResume();
     mGetDataUserPresenter.attachView(this);
-    mGetDataUserPresenter.getGithubUser("gonzapico");
+    mGetDataUserPresenter.getGithubUser(USERNAME);
   }
 
   @Override protected void onStart() {
@@ -78,11 +79,17 @@ public class HomeActivity extends BaseKCActivity implements GetDataUserView {
         new NavigationView.OnNavigationItemSelectedListener() {
           @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-              case R.id.nav_list:
-                replaceFragment(new ScrollingFragment());
+              case R.id.nav_static_list:
+                replaceFragment(new StaticListFragment());
+                break;
+              case R.id.nav_dynamic_list:
+                replaceFragment(new StaticListFragment());
+                break;
+              case R.id.nav_firebase_list:
+                replaceFragment(new FirebaseListFragment());
                 break;
               case R.id.nav_search:
-                replaceFragment(new HomeActivityFragment());
+                replaceFragment(new SearchFragment());
                 break;
               case R.id.nav_select:
                 replaceFragment(PickFragment.newInstance());

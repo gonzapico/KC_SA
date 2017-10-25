@@ -6,12 +6,17 @@ import com.google.firebase.database.IgnoreExtraProperties;
  * Created by gonzapico on 20/10/2017.
  */
 
-@IgnoreExtraProperties
-public class User {
+@IgnoreExtraProperties public class User {
 
-  public User(){
+  public User() {
 
   }
+
+  public User(String name, String url) {
+    this.name = name;
+    this.url = url;
+  }
+
   private String name;
   private String url;
 

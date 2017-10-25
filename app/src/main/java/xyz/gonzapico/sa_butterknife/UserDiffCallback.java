@@ -10,12 +10,12 @@ import java.util.List;
 
 public class UserDiffCallback extends DiffUtil.Callback {
 
-  private final List<ViewModel> mOldUserList;
-  private final List<ViewModel> mNewUserList;
+  private final List<User> mOldUserList;
+  private final List<User> mNewUserList;
 
-  public UserDiffCallback(List<ViewModel> oldEmployeeList, List<ViewModel> newEmployeeList) {
-    this.mOldUserList = oldEmployeeList;
-    this.mNewUserList = newEmployeeList;
+  public UserDiffCallback(List<User> oldUserList, List<User> newUserList) {
+    this.mOldUserList = oldUserList;
+    this.mNewUserList = newUserList;
   }
 
   @Override public int getOldListSize() {
@@ -27,15 +27,15 @@ public class UserDiffCallback extends DiffUtil.Callback {
   }
 
   @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-    return mOldUserList.get(oldItemPosition).getTitle() == mNewUserList.get(
-        newItemPosition).getTitle();
+    return mOldUserList.get(oldItemPosition).getName() == mNewUserList.get(
+        newItemPosition).getName();
   }
 
   @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-    final ViewModel oldEmployee = mOldUserList.get(oldItemPosition);
-    final ViewModel newEmployee = mNewUserList.get(newItemPosition);
+    final User oldUser = mOldUserList.get(oldItemPosition);
+    final User newUser = mNewUserList.get(newItemPosition);
 
-    return oldEmployee.getTitle().equals(newEmployee.getTitle());
+    return oldUser.getName().equals(newUser.getName());
   }
 
   @Nullable

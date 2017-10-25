@@ -10,46 +10,46 @@ import java.util.List;
  */
 
 public class UserRepository {
-  final static List<ViewModel> mUsers = new ArrayList<>();
+  final static List<User> mUsers = new ArrayList<>();
 
   private UserRepository() {
     // nop
   }
 
-  private static List<ViewModel> getOriginalUserList() {
-    final List<ViewModel> users = new ArrayList<>();
+  private static List<User> getOriginalUserList() {
+    final List<User> users = new ArrayList<>();
 
     for (int i = 1; i <= 10; i++) {
-      users.add(new ViewModel("Item " + i, "http://lorempixel.com/500/500/sports/" + i));
+      users.add(new User("Item " + i, "http://lorempixel.com/500/500/sports/" + i));
     }
 
     return users;
   }
 
-  public static List<ViewModel> getUpListOfUsers(){
+  public static List<User> setUpListOfUsers(){
 
     if (mUsers.size() == 0){
       for (int i = 1; i <= 10; i++) {
-        mUsers.add(new ViewModel("Item " + i, "http://lorempixel.com/500/500/sports/" + i));
+        mUsers.add(new User("Item " + i, "http://lorempixel.com/500/500/sports/" + i));
       }
     }
 
     return mUsers;
   }
 
-  public static List<ViewModel> getUserListSortedByName() {
-    final List<ViewModel> actorList = getOriginalUserList();
+  public static List<User> getUserListSortedByName() {
+    final List<User> userList = getOriginalUserList();
 
-    Collections.sort(actorList, new Comparator<ViewModel>() {
-      @Override public int compare(ViewModel a1, ViewModel a2) {
-        return a1.getTitle().compareTo(a2.getTitle());
+    Collections.sort(userList, new Comparator<User>() {
+      @Override public int compare(User a1, User a2) {
+        return a1.getName().compareTo(a2.getName());
       }
     });
 
-    return actorList;
+    return userList;
   }
 
-  public static void addElement(ViewModel viewModel) {
+  public static void addElement(User viewModel) {
     mUsers.add(viewModel);
   }
 }
